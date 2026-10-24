@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JS Interview Questions</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+		rel="stylesheet">
+	<style>
+		:root {
+			--bg: #f6f7fb;
+			--surface: #ffffff;
+			--text: #1f2333;
+			--muted: #6b7088;
+			--border: #e4e6ef;
+			--accent: #f0b429;
+			--accent-dark: #c98a00;
+			--accent-soft: #fff7e0;
+			--code-bg: #1e2130;
+			--code-text: #e6e8f0;
+			--shadow: 0 1px 2px rgba(20, 24, 40, .04), 0 4px 16px rgba(20, 24, 40, .06);
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--bg: #12141c;
+				--surface: #1b1e29;
+				--text: #e6e8f0;
+				--muted: #9aa0b8;
+				--border: #2b2f3e;
+				--accent-soft: #2a2516;
+				--code-bg: #0d0f15;
+				--shadow: 0 4px 16px rgba(0, 0, 0, .3);
+			}
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		html {
+			scroll-behavior: smooth;
+			scroll-padding-top: 80px;
+		}
+
+		body {
+			margin: 0;
+			font-family: "Inter", system-ui, -apple-system, sans-serif;
+			font-size: 16px;
+			line-height: 1.6;
+			color: var(--text);
+			background: var(--bg);
+		}
+
+		/* Header */
+		.hero {
+			text-align: center;
+			padding: 56px 16px 40px;
+			background: linear-gradient(135deg, #f7df1e 0%, #f0b429 100%);
+			color: #1a1a1a;
+		}
+
+		.hero h1 {
+			margin: 0 0 8px;
+			font-size: clamp(1.8rem, 5vw, 2.8rem);
+			font-weight: 700;
+			letter-spacing: -0.02em;
+		}
+
+		.hero p {
+			margin: 0;
+			font-size: 1.05rem;
+			opacity: .8;
+		}
+
+		/* Category nav */
+		.toc {
+			position: sticky;
+			top: 0;
+			z-index: 10;
+			background: var(--surface);
+			border-bottom: 1px solid var(--border);
+			box-shadow: var(--shadow);
+		}
+
+		.toc ul {
+			display: flex;
+			gap: 8px;
+			max-width: 960px;
+			margin: 0 auto;
+			padding: 12px 16px;
+			list-style: none;
+			overflow-x: auto;
+		}
+
+		.toc a {
+			display: block;
+			white-space: nowrap;
+			padding: 6px 14px;
+			border-radius: 999px;
+			border: 1px solid var(--border);
+			color: var(--text);
+			text-decoration: none;
+			font-size: .9rem;
+			font-weight: 500;
+			transition: background .15s, border-color .15s;
+		}
+
+		.toc a:hover {
+			background: var(--accent-soft);
+			border-color: var(--accent);
+		}
+
+		/* Sections */
+		main {
+			max-width: 960px;
+			margin: 0 auto;
+			padding: 32px 16px 64px;
+		}
+
+		section {
+			background: var(--surface);
+			border: 1px solid var(--border);
+			border-radius: 14px;
+			box-shadow: var(--shadow);
+			padding: 24px 28px;
+			margin-bottom: 28px;
+		}
+
+		section h2 {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			margin: 0 0 16px;
+			padding-bottom: 12px;
+			border-bottom: 2px solid var(--accent);
+			font-size: 1.35rem;
+		}
+
+		.count {
+			font-size: .8rem;
+			font-weight: 600;
+			padding: 2px 10px;
+			border-radius: 999px;
+			background: var(--accent-soft);
+			color: var(--accent-dark);
+		}
+
+		/* Questions */
+		ol {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			counter-reset: q;
+		}
+
+		ol > li {
+			position: relative;
+			counter-increment: q;
+			padding: 12px 12px 12px 52px;
+			border-radius: 8px;
+			transition: background .15s;
+		}
+
+		ol > li + li {
+			border-top: 1px solid var(--border);
+		}
+
+		ol > li:hover {
+			background: var(--accent-soft);
+		}
+
+		ol > li::before {
+			content: counter(q);
+			position: absolute;
+			left: 10px;
+			top: 12px;
+			width: 28px;
+			height: 28px;
+			display: grid;
+			place-items: center;
+			border-radius: 50%;
+			background: var(--accent);
+			color: #1a1a1a;
+			font-size: .8rem;
+			font-weight: 700;
+		}
+
+		li p {
+			margin: 0 0 8px;
+		}
+
+		li p:last-child {
+			margin-bottom: 0;
+		}
+
+		/* Answer toggle */
+		.answer-btn {
+			margin-top: 10px;
+			padding: 5px 14px;
+			border: 1px solid var(--accent);
+			border-radius: 999px;
+			background: transparent;
+			color: var(--accent-dark);
+			font: inherit;
+			font-size: .85rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background .15s, color .15s;
+		}
+
+		.answer-btn:hover,
+		.answer-btn[aria-expanded="true"] {
+			background: var(--accent);
+			color: #1a1a1a;
+		}
+
+		.answer {
+			margin-top: 10px;
+			padding: 12px 16px;
+			border-left: 4px solid var(--accent);
+			border-radius: 0 8px 8px 0;
+			background: var(--bg);
+		}
+
+		.answer ul {
+			margin: 0 0 8px;
+			padding-left: 20px;
+		}
+
+		.answer ul:last-child {
+			margin-bottom: 0;
+		}
+
+		.answer li {
+			padding: 2px 0;
+		}
+
+		code {
+			font-family: "JetBrains Mono", ui-monospace, monospace;
+			font-size: .88em;
+			padding: 1px 6px;
+			border-radius: 4px;
+			background: var(--accent-soft);
+		}
+
+		pre {
+			margin: 8px 0 0;
+			padding: 14px 16px;
+			border-radius: 8px;
+			background: var(--code-bg);
+			color: var(--code-text);
+			overflow-x: auto;
+			line-height: 1.5;
+		}
+
+		pre code {
+			padding: 0;
+			background: none;
+			font-size: .85rem;
+		}
+
+		.note {
+			color: var(--muted);
+			font-size: .92rem;
+		}
+
+		footer {
+			text-align: center;
+			color: var(--muted);
+			font-size: .9rem;
+			padding: 0 16px 32px;
+		}
+
+		@media (max-width: 600px) {
+			section {
+				padding: 18px 16px;
+			}
+
+			ol > li {
+				padding-left: 46px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<header class="hero">
+		<h1>JS Interview Questions</h1>
+		<p>From the basics to async JavaScript and the DOM</p>
+	</header>
+
+	<nav class="toc">
+		<ul>
+			<li><a href="#basics">Basics</a></li>
+			<li><a href="#functional">Functional Programming</a></li>
+			<li><a href="#types">Types &amp; Data Structures</a></li>
+			<li><a href="#oop">Object Oriented JS</a></li>
+			<li><a href="#core">Core Concepts</a></li>
+			<li><a href="#async">Async JS</a></li>
+			<li><a href="#dom">DOM &amp; Web APIs</a></li>
+		</ul>
+	</nav>
+
+	<main>
+		<section id="basics">
+			<h2>Basics of Writing JS <span class="count">29 questions</span></h2>
+			<ol>
+				<li>Difference between declaration and initialization</li>
+				<li>Difference between <code>let</code> and <code>const</code>?</li>
+				<li>Difference between <code>var</code> and <code>let</code>?</li>
+				<li>Is this a valid syntax with const: <code>const name1 = value1, name2 = value2;</code></li>
+				<li>Can <code>var</code> or <code>let</code> be redeclared in the same scope?</li>
+				<li>Variables declared with <code>var</code> respect block scope?</li>
+				<li>What is Temporal Dead Zone?</li>
+				<li>Difference between <code>Math.ceil()</code>, <code>Math.floor()</code> and
+					<code>Math.round()</code>?</li>
+				<li>How can we get absolute value in JS?</li>
+				<li>What is the rest parameter and spread operator?</li>
+				<li>Difference between <code>==</code> and <code>===</code> operators.</li>
+				<li>What is Nullish Coalescing operator?</li>
+				<li>What is <code>void</code> operator?</li>
+				<li>Write ternary operator.</li>
+				<li>Explain the <code>!</code> and <code>!!</code> operator</li>
+				<li>Explain the unary plus operator</li>
+				<li>Difference between <code>++pre</code> and <code>post++</code></li>
+				<li>What is nullish coalescing assignment (<code>??=</code>) operator?</li>
+				<li>Write a nested ternary operator</li>
+				<li>Write if/else-if/else conditional, and also write its switch-case equivalent</li>
+				<li>Write a simple for loop.</li>
+				<li>Write a for-of loop</li>
+				<li>Write a for-in loop</li>
+				<li>What is the difference between <code>break</code>, <code>continue</code> and <code>return</code>
+					keyword inside a for-loop?</li>
+				<li>How can we break a for loop?</li>
+				<li>What is the difference in while and do-while loop?</li>
+				<li>Explain use of <code>default</code> in switch cases, can we have multiple defaults?</li>
+				<li>Write a programme to generate a random number between 1 to 100</li>
+				<li>
+					<p>You have given below arrays:</p>
+					<pre><code>firstArray  = [7, 3, 4, 2, 5]
+secondArray = [1, 3, 2]
+thirdArray  = [8, 3, 4, 5]</code></pre>
+					<p>You have to return an array having sum of its respective index elements by looping through all of
+						them.</p>
+					<p><strong>Constraint:</strong> You have to write single for loop only to merge them into a single
+						array, loop to the maximum array length.</p>
+					<p><strong>Expected output:</strong> <code>[16, 9, 10, 7, 5]</code></p>
+					<p class="note">Make sure your logic will also work if we change the size of the arrays.</p>
+				</li>
+			</ol>
+		</section>
+
+		<section id="functional">
+			<h2>Functional Programming in JavaScript <span class="count">22 questions</span></h2>
+			<ol>
+				<li>What is an Immediately Invoked Function in JavaScript?</li>
+				<li>Explain Higher Order Functions in JavaScript.</li>
+				<li>Explain difference between <code>call</code> and <code>apply</code>?</li>
+				<li>Explain <code>bind()</code> method</li>
+				<li>What is anonymous function?</li>
+				<li>What are pure functions?</li>
+				<li>Difference and syntax in function and arrow function?</li>
+				<li>What is currying in JavaScript?</li>
+				<li>What are generator functions (syntax)?</li>
+				<li>What is the difference between Function declaration and Function expression?</li>
+				<li>Why functions are called first class citizens in JS?</li>
+				<li>Can we redeclare a function, in the same scope?</li>
+				<li>What are default parameters?</li>
+				<li>Write a rest parameter syntax.</li>
+				<li>What are args in function?</li>
+				<li>Difference between function argument and function parameter?</li>
+				<li>What does <code>function.name</code> and <code>function.length</code> do?</li>
+				<li>Can we use <code>return</code> outside a function?</li>
+				<li>What's the difference between a function definition and function invocation/call?</li>
+				<li>What are named parameters? How can we use named parameters in JS functions?</li>
+				<li>Data type of a function is same as data type of its return value?</li>
+				<li>
+					<p>Explain the output:</p>
+					<pre><code>function getPersonInfo(one, two, three) {
+  console.log(one);
+  console.log(two);
+  console.log(three);
+}
+
+const person = 'Lydia';
+const age = 21;
+
+getPersonInfo`${person} is ${age} years old`; // tagged template literals</code></pre>
+				</li>
+			</ol>
+		</section>
+
+		<section id="types">
+			<h2>Types and Data Structures <span class="count">35 questions</span></h2>
+			<ol>
+				<li>What are the different primitive data types present in JavaScript?</li>
+				<li>Explain Type Coercion in JavaScript.</li>
+				<li>Difference between <code>push</code>, <code>pop</code>, <code>shift</code>, <code>unshift</code>
+				</li>
+				<li>2 ways you can concatenate two arrays in JavaScript?</li>
+				<li>3 ways you check the data type of a variable is array or not?</li>
+				<li>Difference between <code>flat</code> and <code>flatMap</code></li>
+				<li>What is the difference between <code>.map()</code>, <code>.filter()</code> and
+					<code>.forEach()</code>?</li>
+				<li>What is the difference between <code>.find()</code> and <code>.findIndex()</code>?</li>
+				<li>What's the difference between <code>array.slice()</code> and <code>array.splice()</code>?</li>
+				<li>Write a program to sum all the elements of given array <code>[5, 6, 2, 9, 3, 4, 1, 7]</code> using
+					<code>array.reduce()</code> method?</li>
+				<li>How can we get the length of the string?</li>
+				<li>How can we remove the extra space from start and end of the string?</li>
+				<li>How can we get substring from a string?</li>
+				<li>How can we convert a string into uppercase and lowercase?</li>
+				<li>What is <code>Set</code> in JS?</li>
+				<li>How can we add, remove, check values in set?</li>
+				<li>What is <code>Map</code> in JS?</li>
+				<li>How can we add and remove values in map?</li>
+				<li>How can we get current dateTime in JS?</li>
+				<li>How can we replace a given word in all places in a string?</li>
+				<li>What is <code>valueOf</code> method in string?</li>
+				<li>How can we convert a <code>"true"</code> or <code>"false"</code> into boolean?</li>
+				<li>How can we convert an object into string and vice-versa?</li>
+				<li>Write a JavaScript function to get the number of days in a month</li>
+				<li>How can we convert a date into string and vice-versa?</li>
+				<li>How can we change the hour, minute and second of date?</li>
+				<li>
+					<p>WAP to check whether the first character of a string is uppercase or not using regex.</p>
+					<pre><code>string = "WebMaster"
+expected output = true</code></pre>
+				</li>
+				<li>
+					<p>WAP to remove duplicate elements from an array?</p>
+					<pre><code>array = [1, 1, 1, 2, 4, 5, 1, 3, 2, 5]
+expected output = 1 2 4 5 3</code></pre>
+				</li>
+				<li>
+					<p>WAP to remove all the elements that are divisible by 3 and 5 but do not remove which are
+						divisible by both 3 and 5</p>
+					<pre><code>array = [2, 6, 3, 15, 20, 23, 18, 16, 60, 45, 43]
+expected output = [2, 15, 23, 16, 60, 45, 43]</code></pre>
+				</li>
+				<li>What does the <code>.toFixed</code> and <code>.toPrecision</code> method do in JS?</li>
+				<li>What is <code>Number.MAX_SAFE_INTEGER</code> and <code>Number.MIN_SAFE_INTEGER</code>?</li>
+				<li>How to create a new Symbol in JS?</li>
+				<li>Define a BigInt? What is the range for a number to be a BigInt? Create a BigInt</li>
+				<li>What will be <code>2.756e5</code> in simple number form?</li>
+				<li>What will be <code>2.756e-5</code> in simple number form?</li>
+			</ol>
+		</section>
+
+		<section id="oop">
+			<h2>Pillars of Object Oriented JavaScript <span class="count">17 questions</span></h2>
+			<ol>
+				<li>What advantage is there for using the arrow syntax for a method in a constructor?</li>
+				<li>Explain the difference between mutable and immutable objects.</li>
+				<li>How can you iterate over object properties?</li>
+				<li>Why is extending built-in JavaScript objects not a good idea?</li>
+				<li>Difference between: <code>function Person(){}</code>, <code>var person = Person()</code>, and
+					<code>var person = new Person()</code>?</li>
+				<li>What's the difference between host objects and native objects?</li>
+				<li>Explain how prototypal inheritance works</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>function sum(a, b) {
+  return a + b;
+}
+
+sum(1, '2');</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>class Dog {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+Dog.prototype.bark = function() {
+  console.log(`Woof I am ${this.name}`);
+};
+
+const pet = new Dog('Mara');
+
+pet.bark();
+
+delete Dog.prototype.bark;
+
+pet.bark();</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>function giveLydiaPizza() {
+  return 'Here is pizza!';
+}
+
+const giveLydiaChocolate = () =>
+  "Here's chocolate... now go hit the gym already.";
+
+console.log(giveLydiaPizza.prototype);
+console.log(giveLydiaChocolate.prototype);</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>class Person {
+  constructor() {
+    this.name = 'Lydia';
+  }
+}
+
+Person = class AnotherPerson {
+  constructor() {
+    this.name = 'Sarah';
+  }
+};
+
+const member = new Person();
+console.log(member.name);</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>class Counter {
+  constructor() {
+    this.count = 0;
+  }
+
+  increment() {
+    this.count++;
+  }
+}
+
+const counterOne = new Counter();
+counterOne.increment();
+counterOne.increment();
+
+const counterTwo = counterOne;
+counterTwo.increment();
+
+console.log(counterOne.count);</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>class Chameleon {
+  static colorChange(newColor) {
+    this.newColor = newColor;
+    return this.newColor;
+  }
+
+  constructor({ newColor = 'green' } = {}) {
+    this.newColor = newColor;
+  }
+}
+
+const freddie = new Chameleon({ newColor: 'purple' });
+console.log(freddie.colorChange('orange'));</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>const person = { name: 'Lydia' };
+
+Object.defineProperty(person, 'age', { value: 21 });
+
+console.log(person);
+console.log(Object.keys(person));</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>const box = { x: 10, y: 20 };
+
+Object.freeze(box);
+
+const shape = box;
+shape.x = 100;
+
+console.log(shape);</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>const person = {
+  name: 'Lydia',
+  age: 21,
+};
+
+for (const [x, y] of Object.entries(person)) {
+  console.log(x, y);
+}</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>const info = {
+  [Symbol('a')]: 'b',
+};
+
+console.log(info);
+console.log(Object.keys(info));</code></pre>
+				</li>
+			</ol>
+		</section>
+
+		<section id="core">
+			<h2>The Core Concepts <span class="count">6 questions</span></h2>
+			<ol>
+				<li>Explain hoisting</li>
+				<li>What are different types of Scopes present in JavaScript?</li>
+				<li>Explain Scope chain?</li>
+				<li>Explain closure with an example</li>
+				<li>What is <code>"use strict";</code>? What are the advantages and disadvantages to using it?</li>
+				<li>What do you think of AMD vs CommonJS?</li>
+			</ol>
+		</section>
+
+		<section id="async">
+			<h2>Asynchronous JavaScript <span class="count">7 questions</span></h2>
+			<ol>
+				<li>What is event loop? What is the difference between call stack and task queue?</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>const myPromise = Promise.resolve('Woah some cool data');
+
+(async () => {
+  try {
+    console.log(await myPromise);
+  } catch {
+    throw new Error(`Oops didn't work`);
+  } finally {
+    console.log('Oh finally!');
+  }
+})();</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>const firstPromise = new Promise((res, rej) => {
+  setTimeout(res, 500, 'one');
+});
+
+const secondPromise = new Promise((res, rej) => {
+  setTimeout(res, 100, 'two');
+});
+
+Promise.race([firstPromise, secondPromise]).then(res => console.log(res));</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>const promise1 = Promise.resolve('First')
+const promise2 = Promise.resolve('Second')
+const promise3 = Promise.reject('Third')
+const promise4 = Promise.resolve('Fourth')
+
+const runPromises = async () => {
+  const res1 = await Promise.all([promise1, promise2])
+  const res2 = await Promise.all([promise3, promise4])
+  return [res1, res2]
+}
+
+runPromises()
+  .then(res => console.log(res))
+  .catch(err => console.log(err))</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>async function getData() {
+  return await Promise.resolve('I made it!');
+}
+
+const data = getData();
+console.log(data);</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>const myPromise = () => Promise.resolve('I have resolved!');
+
+function firstFunction() {
+  myPromise().then(res => console.log(res));
+  console.log('second');
+}
+
+async function secondFunction() {
+  console.log(await myPromise());
+  console.log('second');
+}
+
+firstFunction();
+secondFunction();</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>const myPromise = Promise.resolve(Promise.resolve('Promise'));
+
+function funcOne() {
+  setTimeout(() => console.log('Timeout 1!'), 0);
+  myPromise.then(res => res).then(res => console.log(`${res} 1!`));
+  console.log('Last line 1!');
+}
+
+async function funcTwo() {
+  const res = await myPromise;
+  console.log(`${res} 2!`)
+  setTimeout(() => console.log('Timeout 2!'), 0);
+  console.log('Last line 2!');
+}
+
+funcOne();
+funcTwo();</code></pre>
+				</li>
+			</ol>
+		</section>
+
+		<section id="dom">
+			<h2>DOM and Web APIs <span class="count">20 questions</span></h2>
+			<ol>
+				<li>
+					<p>Explain the following methods on localStorage:</p>
+					<p><code>localStorage.setItem</code>, <code>localStorage.getItem</code>,
+						<code>localStorage.removeItem</code>, <code>localStorage.clear</code>,
+						<code>localStorage.key</code>, <code>localStorage.length</code></p>
+				</li>
+				<li>Difference between <code>querySelector</code> and <code>querySelectorAll</code></li>
+				<li>
+					<p>What happens when we do this?</p>
+					<pre><code>myElement.addEventListener("click", functionA);
+myElement.addEventListener("click", functionB);</code></pre>
+				</li>
+				<li>
+					<p>What happens when we do this?</p>
+					<pre><code>element.onclick = function1;
+element.onclick = function2;</code></pre>
+				</li>
+				<li>
+					<p>How can we add event listeners, and remove event listeners?</p>
+					<p class="note">To add: <code>.addEventListener</code>, <code>ele.onclick</code> &nbsp;·&nbsp; To
+						remove: ?</p>
+				</li>
+				<li>Which of the following is not an event listener: <code>click</code>, <code>play</code>,
+					<code>dblclick</code>, <code>scroll</code>, <code>mouseout</code></li>
+				<li>What is event bubbling?</li>
+				<li>What is event capturing?</li>
+				<li>What is event delegation?</li>
+				<li>What is the purpose of <code>event.stopPropagation</code>?</li>
+				<li>What is difference between localStorage and sessionStorage?</li>
+				<li>
+					<p>What will be logged?</p>
+					<pre><code>for (var i = 0; i &lt; 3; i++) {
+  setTimeout(() => console.log(i), 1);
+}
+
+for (let i = 0; i &lt; 3; i++) {
+  setTimeout(() => console.log(i), 1);
+}</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>const foo = () => console.log('First');
+const bar = () => setTimeout(() => console.log('Second'));
+const baz = () => console.log('Third');
+
+bar();
+foo();
+baz();</code></pre>
+				</li>
+				<li>
+					<p>What's the output?</p>
+					<pre><code>var status = '😎';
+
+setTimeout(() => {
+  const status = '😍';
+
+  const data = {
+    status: '🥑',
+    getStatus() {
+      return this.status;
+    },
+  };
+
+  console.log(data.getStatus());
+  console.log(data.getStatus.call(this));
+}, 0);</code></pre>
+				</li>
+				<li>How <code>setInterval</code> works? What does it return?</li>
+				<li>What is the use of <code>clearInterval</code>?</li>
+				<li>Difference between <code>appendChild</code> and <code>append</code></li>
+				<li>
+					<p>Why do we use <code>prepend</code>?</p>
+					<p class="note">Ans: to add elements before something</p>
+				</li>
+				<li>How can we remove an HTML element from DOM tree?</li>
+				<li>Explain <code>scrollTop</code>, <code>scrollHeight</code>, <code>clientHeight</code></li>
+			</ol>
+		</section>
+	</main>
+
+	<footer>Happy coding! 🚀</footer>
+
+	<script src="answers.js"></script>
+	<script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>JS Interview Questions</div>
+    
+    <div>
+	Basics of Writing JS:	
+	Difference between declaration and initialization
+	Difference between let and const?
+	Difference between var and let?
+	Is this a valid syntax with const: const name1 = value1, name2 = value2;
+	Can var or let be redeclared in the same scope?
+	Variables declared with var respect block scope?
+	What is Temporal Dead Zone?
+	Difference between Math.ceil(), Math.floor() and Math.round()?
+	How can we get absolute value in js?
+	What is the rest parameter and spread operator?
+	Difference between ” == ” and ” === ” operators.
+	What is Nullish Collescing operator?
+	What is void operator?
+	Write ternary operator.
+	Explain the ! and !! operator
+	Explain the unary plus operator
+	difference between ++pre, and post++
+	What nullish coalescing assignment (??=) operator
+	Write a nested ternary operator
+	Write if/else-if/else conditional, and also write its switch-case equivalent
+	Write a simple for loop.
+	Write a for-of loop
+	Write a for-in loop
+	What is the difference between ‘break’, ‘continue’ and ‘return’ keyword inside a for-loop
+	How can we break a for loop?
+	What is the difference in while and do-while loop?
+	Explain use of default in switch cases, can we have multiple defaults?
+	Write a programme to generate a random number between 1 to 100
+	"You have given below arrays
+firstArray = [ 7,3,4,2,5]
+secondArray = [ 1,3,2]
+thirdArray = [ 8,3,4,5]
+
+You have to return an array having sum of its respective index elements by looping through all of them.
+Constraint - You have to write single for loop only to merge them into a single array, loop to the maximum array length.
+
+Expected output:  [16,9,10,7,5]
+
+Make sure your logic will also work if we change the size of the arrays"
+	Total
+	
+	
+Functional Programming in JavaScript:	
+	What is an Immediately Invoked Function in JavaScript?
+	Explain Higher Order Functions in javascript.
+	Explain difference between call and apply? 
+	Explain bind() method
+	What is anonymous function?
+	What are pure functions?
+	Difference and syntax in function and arrow function?
+	What is currying in JavaScript?
+	What are generator functions (syntax)?
+	What is the difference between Function declaration and Function expression?
+	Why functions are called first class citizens in js?
+	Can we redeclare a function, in the same scope?
+	What are default parameters?
+	Write a rest parameter syntax.
+	What are args in function?
+	Difference between function argument and function parameter?
+	What does function.name and function.length do?
+	Can we use return outside a function?
+	Whats the difference between a function definition and function invocation/call
+	What are named parameters? How can we use named parameters in JS functions
+	Data type of a function is same as data type of its return value?
+	"Explain the output:
+function getPersonInfo(one, two, three) {
+  console.log(one);
+  console.log(two);
+  console.log(three);
+}
+
+const person = 'Lydia';
+const age = 21;"
+	getPersonInfo`${person} is ${age} years old` // tagged template literals
+	Total
+	
+Types and Data Structures:	
+	What are the different primitive data types present in javascript?
+	Explain Type Coercion in javascript.
+	Difference between push, pop, shift, unshift
+	2 ways you can concatenate two arrays in JavaScript?
+	3 ways you check the data type of a variable is array or not?
+	Difference between flat and flatMap
+	What is the difference between .map(). filter and .forEach()?
+	What is the difference between .find() and findIndex?
+	What's the difference between array.slice() and array.splice()?
+	Write a program to sum all the element of given array [5, 6, 2, 9, 3, 4, 1, 7] using array.reduce() method?
+	How can we get the length of the string?
+	How can we remove the extra space from start and end of the string?
+	How can we get substring from a string?
+	How can we convert a string into uppercase and lowercase?
+	What is Set in js?
+	How can we add, remove, check values in set?
+	What is Map in js?
+	How can we add and remove values in map?
+	How can we get current dateTime in js?
+	How can we replace a given word in all places in a string?
+	What is valueOf method in string?
+	How can we convert a "true" or "false" into boolean?
+	How can we convert an object into string and vice-versa?
+	Write a JavaScript function to get the number of days in a month
+	How can we convert a date into string and vice-versa?
+	How can we change the hour, minute and second of date?
+	"WIP to  Check whether the first character of a string is uppercase or not using regex.
+string = ""WebMaster""
+expected output = true"
+	"WIP to remove duplicate elements from an array?
+array = [ 1,1,1,2,4,5,1,3,2,5]
+expected output = 1 2 4 5 3"
+	"WIP to remove all the elements that are divisible by 3 and 5 but do not remove which are divisible by both 3 and 5
+array = [ 2,6,3,15,20,23,18,16,60,45,43 ]
+expected output = [ 2,15,23,16,60,45,43 ]"
+	What does the .toFixed and .toPrecision method do in JS?
+	What is Number.MAX_SAFE_INTEGER and Number.MIN_SAFE_INTEGER
+	How to create a new Symbol in JS?
+	Define a BigInt? What is the range for a number to be a BigInt? Create a BigInt
+	What will be 2.756e5 in simple number form?
+	What will be 2.756e-5 in simple number form?
+	Total
+	
+Pillars of Object Oriented JavaScript:	
+	What advantage is there for using the arrow syntax for a method in a constructor?
+	Explain the difference between mutable and immutable objects.
+	How can you iterate over object properties
+	Why is extending built-in JavaScript objects not a good idea?
+	Difference between: function Person(){}, var person = Person(), and var person = new Person()?
+	What's the difference between host objects and native objects?
+	Explain how prototypal inheritance works
+	"function sum(a, b) {
+  return a + b;
+}
+
+sum(1, '2');"
+	"class Dog {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+Dog.prototype.bark = function() {
+  console.log(`Woof I am ${this.name}`);
+};
+
+const pet = new Dog('Mara');
+
+pet.bark();
+
+delete Dog.prototype.bark;
+
+pet.bark();"
+	"function giveLydiaPizza() {
+  return 'Here is pizza!';
+}
+
+const giveLydiaChocolate = () =>
+  ""Here's chocolate... now go hit the gym already."";
+
+console.log(giveLydiaPizza.prototype);
+console.log(giveLydiaChocolate.prototype);"
+	"class Person {
+  constructor() {
+    this.name = 'Lydia';
+  }
+}
+
+Person = class AnotherPerson {
+  constructor() {
+    this.name = 'Sarah';
+  }
+};
+
+const member = new Person();
+console.log(member.name);"
+	"class Counter {
+  constructor() {
+    this.count = 0;
+  }
+
+  increment() {
+    this.count++;
+  }
+}
+
+const counterOne = new Counter();
+counterOne.increment();
+counterOne.increment();
+
+const counterTwo = counterOne;
+counterTwo.increment();
+
+console.log(counterOne.count);"
+	"class Chameleon {
+  static colorChange(newColor) {
+    this.newColor = newColor;
+    return this.newColor;
+  }
+
+  constructor({ newColor = 'green' } = {}) {
+    this.newColor = newColor;
+  }
+}
+
+const freddie = new Chameleon({ newColor: 'purple' });
+console.log(freddie.colorChange('orange'));"
+	"const person = { name: 'Lydia' };
+
+Object.defineProperty(person, 'age', { value: 21 });
+
+console.log(person);
+console.log(Object.keys(person));"
+	"const box = { x: 10, y: 20 };
+
+Object.freeze(box);
+
+const shape = box;
+shape.x = 100;
+
+console.log(shape);"
+	"const person = {
+  name: 'Lydia',
+  age: 21,
+};
+
+for (const [x, y] of Object.entries(person)) {
+  console.log(x, y);
+}"
+	"const info = {
+  [Symbol('a')]: 'b',
+};
+
+console.log(info);
+console.log(Object.keys(info));"
+	Total
+	
+	
+The Core concepts:	
+	Explain hoisting
+	What are different types of Scopes present in Javascript
+	Explain Scope chain?
+	Explain closure with an example
+	What is "use strict";? What are the advantages and disadvantages to using it?
+	What do you think of AMD vs CommonJS?
+	Total
+	
+Asynchronous Javascript:	
+	What is event loop? What is the difference between call stack and task queue?
+	"const myPromise = Promise.resolve('Woah some cool data');
+
+(async () => {
+  try {
+    console.log(await myPromise);
+  } catch {
+    throw new Error(`Oops didn't work`);
+  } finally {
+    console.log('Oh finally!');
+  }
+})();"
+	"const firstPromise = new Promise((res, rej) => {
+  setTimeout(res, 500, 'one');
+});
+
+const secondPromise = new Promise((res, rej) => {
+  setTimeout(res, 100, 'two');
+});
+
+Promise.race([firstPromise, secondPromise]).then(res => console.log(res));"
+	"const promise1 = Promise.resolve('First')
+const promise2 = Promise.resolve('Second')
+const promise3 = Promise.reject('Third')
+const promise4 = Promise.resolve('Fourth')
+
+const runPromises = async () => {
+        const res1 = await Promise.all([promise1, promise2])
+        const res2  = await Promise.all([promise3, promise4])
+        return [res1, res2]
+}
+
+runPromises()
+        .then(res => console.log(res))
+        .catch(err => console.log(err))"
+	"async function getData() {
+  return await Promise.resolve('I made it!');
+}
+
+const data = getData();
+console.log(data);"
+	"const myPromise = () => Promise.resolve('I have resolved!');
+
+function firstFunction() {
+  myPromise().then(res => console.log(res));
+  console.log('second');
+}
+
+async function secondFunction() {
+  console.log(await myPromise());
+  console.log('second');
+}
+
+firstFunction();
+secondFunction();"
+	"const myPromise = Promise.resolve(Promise.resolve('Promise'));
+
+function funcOne() {
+  setTimeout(() => console.log('Timeout 1!'), 0);
+  myPromise.then(res => res).then(res => console.log(`${res} 1!`));
+  console.log('Last line 1!');
+}
+
+async function funcTwo() {
+  const res = await myPromise;
+  console.log(`${res} 2!`)
+  setTimeout(() => console.log('Timeout 2!'), 0);
+  console.log('Last line 2!');
+}
+
+funcOne();
+funcTwo();"
+	Total
+	
+DOM and WebAPIs:	
+	"Explain the following methods on localStorage:
+localStorage.setItem, localStorage.getItem, localStorage.removeItem, localStorage.clear, localStorage.key, localStorage.length"
+	Difference between querySelector and querySelectorAll
+	"What happens when we do this?
+myElement.addEventListener(""click"", functionA);
+myElement.addEventListener(""click"", functionB);"
+	"What happens when we do this?
+element.onclick = function1;
+element.onclick = function2;"
+	"How can we add event listeners, and remove event listeners?
+to add:   .addEventListeners, ele.onclick, 
+to remove"
+	Which of the following in not an event listener: click, play, dblclick, scroll, mouseout
+	What is event bubbling
+	What is event capturing?
+	What is event delegation?
+	What is the purpose of event.stopPropagation
+	What is difference between localStorage and sessionStorage?
+	"What will be logged?
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 1);
+}
+
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 1);
+}"
+	"const foo = () => console.log('First');
+const bar = () => setTimeout(() => console.log('Second'));
+const baz = () => console.log('Third');
+
+bar();
+foo();
+baz();"
+	"var status = '😎';
+
+setTimeout(() => {
+  const status = '😍';
+
+  const data = {
+    status: '🥑',
+    getStatus() {
+      return this.status;
+    },
+  };
+
+  console.log(data.getStatus());
+  console.log(data.getStatus.call(this));
+}, 0);"
+	How setInterval works? What does it return?
+	What is the use of clearInterval?
+	Difference between appendChild and append
+	"Why do we use prepend?
+
+Ans: to add elements before something"
+	How can we remove an html element from DOM tree?
+	"Explain scrollTop, scrollHeight, clientHeight
+"
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
