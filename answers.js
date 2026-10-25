@@ -340,26 +340,71 @@ const addArrow = (a, b) => a + b;      // arrow (implicit return)
 const square = x => x * x;             // single param, no ()`)}`,
 
         // 8
-        `<p><strong>Currying</strong> turns a function with many arguments into a chain of functions that each take one argument: <code>f(a, b, c)</code> → <code>f(a)(b)(c)</code>.</p>
-        ${code(`
-const add = (a) => (b) => (c) => a + b + c;
-add(1)(2)(3); // 6
 
-const add10 = add(10);
-add10(5)(1);  // 16`)}`,
+`<p><strong>Currying</strong> is a technique in JavaScript that transforms a function accepting multiple arguments into a chain of functions, each taking one argument at a time. Instead of calling <code>f(a, b, c)</code>, we call <code>f(a)(b)(c)</code>.</p>
+
+${code(`
+/* Normal Function */
+function add(a, b, c) {
+  return a + b + c;
+}
+
+console.log(add(10, 20, 30));
+// Output: 60
+
+
+/* Curried Function */
+function curriedAdd(a) {
+  return function (b) {
+    return function (c) {
+      return a + b + c;
+    };
+  };
+}
+
+console.log(curriedAdd(10)(20)(30));
+// Output: 60
+`)}`
+,
 
         // 9
-        `<p>A generator is defined with <code>function*</code>. It can pause with <code>yield</code> and resume with <code>.next()</code>.</p>
-        ${code(`
+       
+`<p><strong>Generator Functions</strong> are special JavaScript functions defined using <code>function*</code>. They can pause execution using <code>yield</code> and resume from where they paused when <code>.next()</code> is called. Unlike normal functions, calling a generator function returns a generator object without executing its body immediately.</p>
+
+${code(`
 function* counter() {
-  yield 1;
-  yield 2;
-  return 3;
+  console.log("Generator started");
+
+  yield 1; // Pauses execution and returns 1
+  yield 2; // Resumes and pauses again
+  return 3; // Ends the generator
 }
+
 const gen = counter();
-gen.next(); // { value: 1, done: false }
-gen.next(); // { value: 2, done: false }
-gen.next(); // { value: 3, done: true }`)}`,
+
+console.log(gen.next());
+// Output: "Generator started"
+// { value: 1, done: false }
+
+console.log(gen.next());
+// { value: 2, done: false }
+
+console.log(gen.next());
+// { value: 3, done: true }
+
+console.log(gen.next());
+// { value: undefined, done: true }
+`)}
+
+<p><strong>Key Points:</strong></p>
+<ul>
+  <li><code>function*</code> declares a generator function.</li>
+  <li><code>yield</code> pauses execution and produces a value.</li>
+  <li><code>.next()</code> resumes execution and returns an object containing <code>value</code> and <code>done</code>.</li>
+  <li><code>return</code> ends the generator; its value is returned with <code>done: true</code>.</li>
+  <li>Generators are useful for lazy iteration and producing values one at a time.</li>
+</ul>`
+,
 
         // 10
         `<p>A <strong>declaration</strong> is fully hoisted, so you can call it before the line where it is written. An <strong>expression</strong> is assigned to a variable and can't be called before that line.</p>
@@ -539,10 +584,33 @@ b.splice(1, 2, 99); // returns [2, 3]
 console.log(b);     // [1, 99, 4, 5]`)}`,
 
         // 10
-        code(`
+`<p><strong>Definition:</strong> The <code>reduce()</code> method in JavaScript processes all elements of an array and combines them into a single result, such as a number, object, array, or grouped collection.</p>
+
+<p><strong>Syntax:</strong></p>
+${code(`
+array.reduce((accumulator, currentValue) => {
+  // Logic
+  return accumulator;
+}, initialValue);
+`)}
+
+<p><strong>There are four important parts:</strong></p>
+<ul>
+  <li><strong>Accumulator (acc):</strong> Stores the result accumulated so far.</li>
+  <li><strong>Current value (curr):</strong> The current array element being processed.</li>
+  <li><strong>Initial value:</strong> The starting value of the accumulator.</li>
+  <li><strong>Return:</strong> The returned value becomes the accumulator for the next iteration.</li>
+</ul>
+
+<p><strong>Example:</strong> Calculate the sum of all numbers in an array.</p>
+
+${code(`
 const arr = [5, 6, 2, 9, 3, 4, 1, 7];
+
 const sum = arr.reduce((total, n) => total + n, 0);
-console.log(sum); // 37`),
+
+console.log(sum); // 37
+`)}`,
 
         // 11
         code(`"JavaScript".length; // 10`),

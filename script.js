@@ -1,6 +1,8 @@
 // 1. Revers a String 
 // let str = "aditya";
 
+const { json } = require("express")
+
 // // Fist Approach 
 // function reversString(str){
 //     let reversStr = str.split("").reverse()
@@ -849,17 +851,159 @@
 
 
 // 8. Return the Numbers of vowels in a string  
-let str = "aditya"
+// let str = "aditya"
 
-function findVowels(str){
-    let count = 0
-    let voewls = ["a","e","i","o","u"]
-    for(let i=0;i<str.length;i++){
-       if(voewls.includes(str[i])){
-        count++;
-       }
+// function findVowels(str){
+//     let count = 0
+//     let voewls = ["a","e","i","o","u"]
+//     for(let i=0;i<str.length;i++){
+//        if(voewls.includes(str[i])){
+//         count++;
+//        }
+//     }
+//     return count
+// }
+// console.log("cvbnm,:- ",findVowels(str))
+
+
+
+// console.log("asdfghjkl:-" , Math.floor(Math.random()*100))
+
+// firstArray  = [7, 3, 4, 2, 5]
+// secondArray = [1, 3, 2]
+// thirdArray  = [8, 3, 4, 5]
+
+// let newArr = [];
+// let maxLength = Math.max(firstArray.length,secondArray.length,thirdArray.length )
+
+// console.log("maxlength", maxLength)
+// for(let i = 0; i< maxLength;i++){
+//     newArr[i] = (firstArray[i] ?? 0) + (secondArray[i] ?? 0) + (thirdArray[i] ?? 0)
+// }
+
+// console.log(newArr)
+
+
+
+
+// Currying Function
+
+// function curryied(a){
+//     return function(b){
+//         return function(c){
+//             return a+b+c;
+//         }
+//     }
+// }
+
+// console.log("asdfghjkl:- ", curryied(10)(20)(30))
+
+
+
+// firstArray  = [7, 3, 4, 2, 5]
+// secondArray = [1, 3, 2]
+// thirdArray  = [8, 3, 4, 5]
+
+// console.log(...firstArray, ...secondArray)
+// console.log(firstArray.concat(secondArray))
+
+
+// console.log(Array.isArray(firstArray))
+// console.log(firstArray instanceof Array)
+
+// console.log(Date.now())
+
+// let a = "aditya"
+// console.log(a.replaceAll("a","3"))
+
+
+// let string = "WebMaster"
+
+// if(string.substring(0, 1) == string.substring(0, 1).toUpperCase()){
+//     console.log(true)
+// }
+// else{
+//     console.log(false, string.substring(0, 1))
+// }
+
+
+// let arrays = [1, 1, 1, 2, 4, 5, 1, 3, 2, 5]
+// console.log([...new Set(arrays)])
+
+
+// const array = [2, 6, 3, 15, 20, 23, 18, 16, 60, 45, 43];
+// const result = array.filter(
+//   (n) => n % 15 === 0 || (n % 3 !== 0 && n % 5 !== 0)
+// );
+// console.log(result); // [2, 15, 23, 16, 60, 45, 43]
+
+
+
+
+// That is the code when so many users hit the API at the same time so we can use the cacheData
+// let cacheData = null
+// let cacheTime = null
+
+// app.get("/get/products", async (req, res)=>{
+//     try{
+//         if(cacheData && cacheTime && Date.now() - cacheTime < 60000){
+//             return res.status(200).json({
+//                 success: true,
+//                 message: "All Products",
+//                 prodcut: JSON.parse(cacheData)
+//             })
+//         }
+//         let allProducts = await product.find();
+//         cacheTime = Date.now();
+//         cacheData = JSON.stringify(allProducts) 
+//         res.status(200).json({
+//             success: true,
+//             message: "All Products",
+//             prodcut: allProducts
+//         })
+//     }
+//     catch(error){
+//         res.status(500).json({
+//             success: false,
+//             message: "Internal server",
+//         })
+//     }
+// })
+
+
+
+// Redis 
+import redisClient from "./redis.js";
+import product from "./models/Product.js";
+
+app.get("/get/product", async (req, res)=>{
+    try {
+        let cacheProduct = await redisClient.get("product:all");
+        if(cacheProduct){
+            return res.status(200).josn({
+                success: true,
+                message: "all prodcuts Data",
+                product: JSON.parse(cacheProduct)
+            })
+        }
+        let allProducts = await product.find().lean();
+        await redisClient.set(
+            "product:all",
+            JSON.stringify(allProducts),
+            {"EX":60}
+        )
+
+        res.status(200).josn({
+            success: true,
+            message: "all prodcuts Data",
+            product: allProducts
+        })
+
+    } 
+    catch(error){
+        res.status(500).json({
+            success: false,
+            message: "Internal server",
+        })
     }
-    return count
-}
-console.log("cvbnm,:- ",findVowels(str))
-
+})
